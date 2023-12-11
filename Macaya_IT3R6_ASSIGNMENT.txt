@@ -1,0 +1,68 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: HomePage(),
+    ),
+  );
+}
+
+class HomePage extends StatelessWidget {
+  HomePage();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Page 1 - Home'),
+        backgroundColor: Colors.blue,
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => GalleryPage()),
+            );
+          },
+          child: Text('Go to Page 2'),
+        ),
+      ),
+    );
+  }
+}
+
+class GalleryPage extends StatelessWidget {
+  const GalleryPage();
+
+  final List<String> imageUrls = [
+    'https://picsum.photos/800?key=1',
+    'https://picsum.photos/800?key=2',
+    'https://picsum.photos/800?key=3',
+    // Add keys for the rest of the images
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Page 2 - Gallery'),
+        backgroundColor: Colors.blue,
+      ),
+      body: ListView.builder(
+        itemCount: imageUrls.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.network(
+              imageUrls[index],
+              key: Key(imageUrls[index]), // Provide a key
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
